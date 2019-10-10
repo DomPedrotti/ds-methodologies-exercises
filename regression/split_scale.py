@@ -1,12 +1,9 @@
 import random
 import pandas as pd
-import numpy as np
-from scipy import stats
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, QuantileTransformer, PowerTransformer, RobustScaler, MinMaxScaler
 from env import get_db_url
 import wrangle
-from pydataset import data
 
 ### As a customer analyst, I want to know who has spent the most money with us over their lifetime. I have monthly charges and tenure, so I think I will be able to use those two attributes as features to estimate total_charges. I need to do this within an average of \$5.00 per customer.
 
@@ -21,12 +18,26 @@ df = wrangle.drop_nulls(wrangle.wrangle_telco(df))
 ### Create split_scale.py that will contain the functions that follow. Each scaler function should create the object, fit and transform both train and test. They should return the scaler, train df scaled, test df scaled. Be sure your indices represent the original indices from train/test, as those represent the indices from the original dataframe. Be sure to set a random state where applicable for reproducibility!
 
 def split_my_data(x, y, train_pct = .80):
+    '''
+    split_my_data(x, y, train_pct = .80):
+
+    takes in two input data frames, x and y, and splits them equally
+    
+    train_pct controlls where the split cut off ends, default to an 80%-20% train and test split
+
+    returns two lists of x and y training sets followed by x and y testing sets 
+    '''
     train_x, test_x, train_y, test_y = train_test_split(x, y, 
                                                         train_size = train_pct,
                                                         random_state = 123)
     return [train_x, train_y], [test_x, test_y]
 
 def standard_scaler(train, test):
+    '''
+    def standard_scaler(train, test):
+    
+    reveives train and test dataframes and returns their standard scalar transformations along with their scalar object for reference later
+    '''
     scaler_object = StandardScaler(copy=True, 
                                    with_mean=True, 
                                    with_std=True).fit(train) 
@@ -34,10 +45,27 @@ def standard_scaler(train, test):
     scaled_test  = apply_object(test,  scaler_object)
     return scaler_object, scaled_train, scaled_test
 
-def scale_inverse(array, scaler_object):
-    return pd.DataFrame(scaler_object.inverse_transform(array), columns=array.columns.values).set_index([array.index.values])
+def scale_inverse(df, scaler_object):
+    '''
+    scale_inverse(df, scaler_object):
+
+    receives dataframe associated scalar object and returns un transformed dataframe
+    '''
+    inverse_transformation = pd.DataFrame(scaler_object.inverse_transform(df), columns=df.columns.values).set_index([df.index.values])
+
+    return inverse_transformation
 
 def uniform_scaler(train, test, quantiles = 100):
+    '''
+    uniform_scaler(train, test, quantiles = 100):
+
+    receives train and test data frames as arguments
+    optional argument for number of quantile applied to transformation
+
+    creates uniform scalar object
+
+    returns scalar object, and dataframe transformations
+    '''
     scaler_object = QuantileTransformer(n_quantiles=quantiles, 
                                  output_distribution='uniform', 
                                  random_state=123, 
@@ -47,6 +75,16 @@ def uniform_scaler(train, test, quantiles = 100):
     return scaler_object, scaled_train, scaled_test
 
 def gaussian_scaler(train, test ,method = 'yeo-johnson'):
+    '''
+    gaussian_scaler(train, test ,method = 'yeo-johnson'):
+    
+    receives train and test data frames as arguments
+    optional argument for Gaussian transformation method (yeo-johnson or box-cox)
+
+    creates gaussian scalar object
+
+    returns scalar object, and dataframe transformations
+    '''
     scaler_object = PowerTransformer(method = method, 
                                      standardize = False, 
                                      copy = True).fit(train)
@@ -55,6 +93,15 @@ def gaussian_scaler(train, test ,method = 'yeo-johnson'):
     return scaler_object, scaled_train, scaled_test
     
 def min_max_scaler(train, test):
+    '''
+    min_max_scaler(train, test):
+    
+    receives train and test data frames as arguments
+
+    creates minimum-maximum scalar object
+
+    returns scalar object, and dataframe transformations
+    '''
     scaler_object = MinMaxScaler(copy=True, 
                                  feature_range=(0,1)).fit(train)
     scaled_train = apply_object(train, scaler_object)
@@ -62,6 +109,16 @@ def min_max_scaler(train, test):
     return scaler_object, scaled_train, scaled_test
 
 def iqr_robust_scaler(train, test, quantiles = (25.0, 75.0)):
+    '''
+    iqr_robust_scaler(train, test, quantiles = (25.0, 75.0)):
+    
+    receives train and test data frames as arguments
+    optional argument for quantile range
+
+    creates interquartile range scalar object
+
+    returns scalar object, and dataframe transformations
+    '''
     scaler_object = RobustScaler(quantile_range = quantiles, 
                                  copy = True, with_centering=True, 
                                  with_scaling = True).fit(train)
@@ -70,6 +127,11 @@ def iqr_robust_scaler(train, test, quantiles = (25.0, 75.0)):
     return scaler_object, scaled_train, scaled_test
 
 def apply_object(x, scaler_object):
+    ''' 
+    apply_object(x, scaler_object):
+
+    applys object to dataframe for scalar transformations
+    '''
     return pd.DataFrame(scaler_object.transform(x), 
                         columns=x.columns.values).set_index([x.index.values])
 
