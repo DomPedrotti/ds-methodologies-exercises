@@ -25,12 +25,13 @@ def split_my_data(x, y, train_pct = .80):
     
     train_pct controlls where the split cut off ends, default to an 80%-20% train and test split
 
-    returns two lists of x and y training sets followed by x and y testing sets 
+    returns two dictionaries of x and y training and test, respectively:
+    return {'train' : train_x, 'test' : test_x}, {'train' : train_y, 'test' : test_y}
     '''
     train_x, test_x, train_y, test_y = train_test_split(x, y, 
                                                         train_size = train_pct,
                                                         random_state = 123)
-    return [train_x, train_y], [test_x, test_y]
+    return {'train' : train_x, 'test' : test_x}, {'train' : train_y, 'test' : test_y}
 
 def standard_scaler(train, test):
     '''
