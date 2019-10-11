@@ -15,7 +15,7 @@ def plot_variable_pairs(dataframe):
 
 
 def months_to_years(tenure_months, df):
-    df['tenure_months'] = tenure_months/12
+    df['tenure_years'] = tenure_months/12
     return df
 
 
