@@ -47,7 +47,7 @@ df.describe()
 # In[180]:
 
 
-df.info()
+#df.info()
 
 
 # ### 2) Walk through the steps above using your new dataframe. You may handle the missing values however you feel is appropriate.
@@ -119,7 +119,7 @@ df_clean.sort_values('total_charges').tail(15)
 # In[215]:
 
 
-df.info()
+#df.info()
 
 
 # In[203]:

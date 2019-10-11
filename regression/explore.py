@@ -9,12 +9,14 @@ import wrangle as wgl
 import split_scale as ss 
 
 def plot_variable_pairs(dataframe):
-    
-    pass
+    g = sns.PairGrid(dataframe)
+    g.map_diag(plt.hist)
+    g.map_offdiag(plt.scatter);
 
 
 def months_to_years(tenure_months, df):
-    pass
+    df['tenure_months'] = tenure_months/12
+    return df
 
 
 
