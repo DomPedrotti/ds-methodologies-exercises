@@ -1,0 +1,3 @@
+Hello, welcome to my repo for tools and functions I've developed for my use in data science
+
+This folder contains functions for wrangling, cleaning, and exloring data as well as evaluation and modeling functions for use in regression modeling. Changes will come often as new challenges are faced in my day to day data science projects. docstrings are provided for reference on all functions. libraries refereced will be shown at top of each code file as imports. 
