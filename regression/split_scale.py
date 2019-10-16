@@ -19,14 +19,14 @@ df = wrangle.drop_nulls(wrangle.wrangle_telco(df))
 
 def split_my_data(df, train_pct = .80):
     '''
-    split_my_data(x, y, train_pct = .80):
+    split_my_data(df, train_pct = .80):
 
-    takes in two input data frames, x and y, and splits them equally
+    takes in dataframe as input, and splits it on percent train_pct
     
     train_pct controlls where the split cut off ends, default to an 80%-20% train and test split
 
-    returns two dictionaries of x and y training and test, respectively:
-    return {'train' : train_x, 'test' : test_x}, {'train' : train_y, 'test' : test_y}
+    returns training and test, respectively:
+    return train, test
     '''
     train, test = train_test_split(df, train_size = train_pct, random_state = 123)
     return train, test
