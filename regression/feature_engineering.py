@@ -12,26 +12,37 @@ import split_scale as ss
 
 
 def select_kbest_chisquared(x, y, k = 2):
+
+
     f_selector = SelectKBest(chi2, k)
     
     f_selector.fit(x,y)
     
+    #get feature names
     f_support = f_selector.get_support()
     f_feature = x.loc[:,f_support].columns.tolist()
     return f_feature
 
 
 def select_kbest_freg(x, y, k = 2):
-    f_selector = SelectKBest(f_regression, k)
+    '''
+    
 
+
+    '''
+    #create selector object for k number of best columns and fit it to data
+    f_selector = SelectKBest(f_regression, k)
     f_selector.fit(x,y)
 
+    #get names for the k number of best features
     f_support = f_selector.get_support()
     f_feature = x.loc[:,f_support].columns.tolist()
     return f_feature
 
     
 def ols_backward_elimination(x, y):
+
+
     cols = x.columns
     while (len(cols)>0):
         x_1 = x[cols]
@@ -61,7 +72,7 @@ def optimum_feature_count(x_train, y_train, x_test, y_test):
     high_score = 0
     
     number_of_features = 0
-    score_list = []
+    #score_list = []
     
     for i in range(len(number_of_features_list)):
         model = LinearRegression()
@@ -70,7 +81,7 @@ def optimum_feature_count(x_train, y_train, x_test, y_test):
         x_test_rfe  = rfe.transform(x_test)
         model.fit(x_train_rfe, y_train)
         score = model.score(x_test_rfe, y_test)
-        score_list.append(score)
+        #score_list.append(score)
         if(score > high_score):
             high_score = score
             number_of_features = number_of_features_list[i]
