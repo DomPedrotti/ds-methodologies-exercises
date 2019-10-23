@@ -68,7 +68,7 @@ def lasso_cv_coef(x, y):
 
 
 def optimum_feature_count(x_train, y_train, x_test, y_test):
-    number_of_features_list = np.arange(1,3)
+    number_of_features_list = np.arange(1,len(x_train.columns.tolist())+1)
     high_score = 0
     
     number_of_features = 0
