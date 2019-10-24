@@ -6,7 +6,7 @@ from env import get_db_url
 
 ### Create split_scale.py that will contain the functions that follow. Each scaler function should create the object, fit and transform both train and test. They should return the scaler, train df scaled, test df scaled. Be sure your indices represent the original indices from train/test, as those represent the indices from the original dataframe. Be sure to set a random state where applicable for reproducibility!
 
-def split_my_data(df, train_pct = .80):
+def split_my_data(df, train_pct = .80, stratify = None):
     '''
     split_my_data(df, train_pct = .80):
 
@@ -17,7 +17,7 @@ def split_my_data(df, train_pct = .80):
     returns training and test, respectively:
     return train, test
     '''
-    train, test = train_test_split(df, train_size = train_pct, random_state = 123)
+    train, test = train_test_split(df, train_size = train_pct, random_state = 123, stratify = stratify )
     return train, test
 
 def standard_scaler(train, test):
