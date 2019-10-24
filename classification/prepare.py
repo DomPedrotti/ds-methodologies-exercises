@@ -27,8 +27,8 @@ def prep_titanic(titan):
     clean_titan=titan[ ~titan.embarked.isnull()]
 
     # Remove the deck column.
-    clean_titan=titan[ ~titan.embarked.isnull()]
-    
+    clean_titan.drop('deck', axis = 1, inplace= True)
+
     # Use a label encoder to transform the embarked column.
     encoder = LabelEncoder().fit(clean_titan.embarked)
     clean_titan.embarked = encoder.transform(clean_titan.embarked)
