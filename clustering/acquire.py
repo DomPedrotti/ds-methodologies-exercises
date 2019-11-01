@@ -61,8 +61,12 @@ def get_zillow_data():
     using(`typeconstructiontypeid`)
     where (`latitude` is not null) and (`longitude` is not NULL)
     '''
-    df = pd.read_sql(query, get_db_url('df'))
+    df = pd.read_sql(query, get_db_url('zillow'))
     
     df = df.sort_values(by = ['transactiondate'], axis = 0).drop_duplicates(keep = 'last', subset = 'parcelid')
 
+    df.drop('id', axis = 1, inplace=True)
+
     return df
+
+get_zillow_data()
