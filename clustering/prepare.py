@@ -1,6 +1,6 @@
 from summarize import nulls_by_col
 
-def handle_missing_values(df, prop_required_column, prop_required_row):
+def handle_missing_values(df, prop_required_column= .95, prop_required_row = .8):
     missing_columns = nulls_by_col(df)
     features = missing_columns[missing_columns.pct_rows_missing < (1-prop_required_column)].index.tolist()
     
