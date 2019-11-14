@@ -31,7 +31,7 @@ def standard_scaler(train, test):
                                    with_std=True).fit(train) 
     scaled_train = apply_object(train, scaler_object)
     scaled_test  = apply_object(test,  scaler_object)
-    return scaler_object, scaled_train, scaled_test
+    return  scaled_train, scaled_test, scaler_object
 
 def scale_inverse(df, scaler_object):
     '''

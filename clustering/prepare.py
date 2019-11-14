@@ -17,3 +17,4 @@ def get_single_unit_properties(df):
              (df.propertylandusedesc == 'Manufactured, Modular, Prefabricated Homes')])
 
     return df
+    
