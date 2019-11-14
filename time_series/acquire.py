@@ -2,21 +2,41 @@ import requests
 import pandas as pd
 
 def get_full_sales_data(refresh = False):
+    '''
+    get_full_sales_data(refresh = False):
 
+    reads sales, items, and stores csv files and joins information into one data frame
+
+    args:
+    refresh: if True, will pull current data from the original source, else will read from local csv files
+
+    returns:
+    dataframe
+    '''
     #get data, rewrites all csv files with fresh data if refresh == true
     items = get_items_data(refresh = refresh)
     stores = get_stores_data(refresh = refresh)
     sales = get_sales_data(refresh = refresh)
 
     #join data into one dataframe
-    stores.rename(columns={'store_id' : 'store'}, inplace= True)
-    items.rename(columns={'item_id':'item'}, inplace= True)
-    df = sales.join(stores.set_index('store'), on ='store')
-    df = df.join(items.set_index('item'), on = 'item')
+    sales.rename(columns={'store' : 'store_id', 'item':'item_id'}, inplace= True)
+    df = sales.join(stores.set_index('store_id'), on ='store_id')
+    df = df.join(items.set_index('item_id'), on = 'item_id')
 
     return df
 
 def get_items_data(refresh = False):
+    '''
+    get_items_data(refresh = False):
+
+    finds item data and returns dataframe
+
+    args:
+    refresh: if True, will pull current data from the original source, else will read from local csv files
+
+    returns:
+    dataframe
+    '''
     # rewrites csv file with fresh data if refresh == True
     if refresh:
         refresh_items()
@@ -27,6 +47,17 @@ def get_items_data(refresh = False):
     
 
 def get_stores_data(refresh = False):
+    '''
+    get_stores_data(refresh = False):
+
+    finds store data and returns dataframe
+
+    args:
+    refresh: if True, will pull current data from the original source, else will read from local csv files
+
+    returns:
+    dataframe
+    '''
     # rewrites csv file with fresh data if refresh == True
     if refresh:
             refresh_stores()
@@ -37,6 +68,17 @@ def get_stores_data(refresh = False):
     
 
 def get_sales_data(refresh = False):
+    '''
+    get_sales_data(refresh = False):
+
+    finds sales data and returns dataframe
+
+    args:
+    refresh: if True, will pull current data from the original source, else will read from local csv files
+
+    returns:
+    dataframe
+    '''
     # rewrites csv file with fresh data if refresh == True
     if refresh:
             refresh_sales()
@@ -46,7 +88,17 @@ def get_sales_data(refresh = False):
     return sales_data
     
 def get_opsd_data(refresh = False):
+    '''
+    get_opsd_data(refresh = False):
 
+    finds opsd data and returns dataframe
+
+    args:
+    refresh: if True, will pull current data from the original source, else will read from local csv files
+
+    returns:
+    dataframe
+    '''
     # rewrites csv file with fresh data if refresh == True
     if refresh:
             refresh_opsd()
@@ -95,6 +147,17 @@ def refresh_data(data = None):
         print("Incorrect entry for data. Try: 'items', 'stores', 'sales', 'opsd', or 'all")
 
 def refresh_items():
+    '''
+    refresh_data(data = None):
+
+    Reads values direct from items pages on https://python.zach.lol/api/v1 api and rewrites saved csv files with new data
+
+    args:
+    None
+
+    Returns:
+    None
+    '''
     base_url = 'https://python.zach.lol'
     items_url = base_url + '/api/v1/items'
     response = requests.get(items_url)
@@ -111,6 +174,17 @@ def refresh_items():
     items_df.to_csv('items.csv')
 
 def refresh_stores():
+    '''
+    refresh_data(data = None):
+
+    Reads values direct from stores pages on https://python.zach.lol/api/v1 api and rewrites saved csv files with new data
+
+    args:
+    None
+
+    Returns:
+    None
+    '''
     base_url = 'https://python.zach.lol'
     stores_url = base_url + '/api/v1/stores'
     response = requests.get(stores_url)
@@ -128,12 +202,34 @@ def refresh_stores():
 
 
 def refresh_sales():
+    '''
+    refresh_data(data = None):
+
+    Reads values direct from sales pages on https://python.zach.lol/api/v1 api and rewrites saved csv files with new data
+
+    args:
+    None
+
+    Returns:
+    None
+    '''
+    #establish api url
     base_url = 'https://python.zach.lol'
+
+    #establish first page url
     sales_url = base_url + '/api/v1/sales'
+
+    #get api page information and read from page payload
     response = requests.get(sales_url)
     page = response.json()['payload']
+    
+    #get url extension for next page
     page['next_page']
+
+    #establish variable to hold sales information
     sales = []
+
+    #iterates through pages till the last page and appends sales inforation, breaks when 'next_page' == None 
     while True:
         sales += page['sales']
         if page['next_page'] == None:
@@ -145,5 +241,19 @@ def refresh_sales():
     sales_df.to_csv('sales.csv')
 
 def refresh_opsd():
+    '''
+    refresh_data(data = None):
+
+    Reads values direct from https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv api and rewrites saved csv files with new data
+
+    args:
+    None
+
+    Returns:
+    None
+    '''
+    #read data
     opsd = pd.read_csv('https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv')
+
+    #write data to csv
     opsd.to_csv('opsd.csv')
