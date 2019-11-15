@@ -20,8 +20,9 @@ def get_full_sales_data(refresh = False):
 
     #join data into one dataframe
     sales.rename(columns={'store' : 'store_id', 'item':'item_id'}, inplace= True)
-    df = sales.join(stores.set_index('store_id'), on ='store_id')
-    df = df.join(items.set_index('item_id'), on = 'item_id')
+    df = sales.merge(stores.set_index('store_id'), on ='store_id')
+    df = df.merge(items.set_index('item_id'), on = 'item_id')
+    df.drop(columns = 'Unnamed: 0', inplace = True)
 
     return df
 
@@ -171,7 +172,7 @@ def refresh_items():
         response = requests.get(page_url)
         page = response.json()['payload']
     items_df = pd.DataFrame(items)
-    items_df.to_csv('items.csv')
+    items_df.to_csv('items.csv', index= False)
 
 def refresh_stores():
     '''
@@ -198,7 +199,7 @@ def refresh_stores():
         response = requests.get(page_url)
         page = response.json()['payload']
     stores_df = pd.DataFrame(stores)
-    stores_df.to_csv('stores.csv')
+    stores_df.to_csv('stores.csv', index= False)
 
 
 def refresh_sales():
@@ -238,7 +239,7 @@ def refresh_sales():
         response = requests.get(page_url)
         page = response.json()['payload']
     sales_df = pd.DataFrame(sales)
-    sales_df.to_csv('sales.csv')
+    sales_df.to_csv('sales.csv', index=False)
 
 def refresh_opsd():
     '''
