@@ -22,7 +22,6 @@ def get_full_sales_data(refresh = False):
     sales.rename(columns={'store' : 'store_id', 'item':'item_id'}, inplace= True)
     df = sales.merge(stores.set_index('store_id'), on ='store_id')
     df = df.merge(items.set_index('item_id'), on = 'item_id')
-    df.drop(columns = 'Unnamed: 0', inplace = True)
 
     return df
 
