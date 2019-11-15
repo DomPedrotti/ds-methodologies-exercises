@@ -137,7 +137,7 @@ def refresh_data(data = None):
 
     #refresh sales csv
     elif data == 'sales':
-        refresh_data()
+        refresh_sales()
 
     #refresh opsd data
     elif data == 'opsd':
@@ -239,6 +239,7 @@ def refresh_sales():
         response = requests.get(page_url)
         page = response.json()['payload']
     sales_df = pd.DataFrame(sales)
+
     sales_df.to_csv('sales.csv', index=False)
 
 def refresh_opsd():
