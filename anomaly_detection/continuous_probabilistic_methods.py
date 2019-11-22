@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
 def get_lower_and_upper_bounds(series, method = 'iqr', multiplier = 1.5):
     '''
     get_lower_and_upper_bounds(series, method = 'iqr', multiplier = 1.5)
@@ -29,3 +33,20 @@ def get_lower_and_upper_bounds(series, method = 'iqr', multiplier = 1.5):
         upper_bound = mu + (sigma * multiplier)
     #return calculated bounds
     return lower_bound,upper_bound
+
+
+def plot_columns(series, outlier_method = 'iqr', multiplier = [1.5]):
+    plt.scatter(x = series.index, y = series)
+    
+    #plot upper and lower outlier bounds
+    if type(multiplier) is not list:
+        multiplier = [multiplier]
+    for i in multiplier:
+        low,high = get_lower_and_upper_bounds(series, method = outlier_method, multiplier = i)
+        plt.hlines(low, xmin= series.index.min(), xmax=series.index.max(), linestyles=':')
+        plt.hlines(high, xmin= series.index.min(), xmax=series.index.max(), linestyles=':')
+        
+    #make plot
+    plt.title(series.name)
+    plt.xticks(rotation = 45)
+    plt.show()
