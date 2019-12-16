@@ -6,7 +6,7 @@ from nltk.corpus import stopwords
 
 def pre_prep(unclean_str):
     clean_str = unclean_str.lower()
-    clean_str = re.sub(r'[\r\n\t]+', ' ', clean_str)
+    clean_str = re.sub(r'[\s]+', ' ', clean_str)
     clean_str = clean_str.strip()
     return clean_str
 
@@ -17,7 +17,7 @@ def remove_non_ascii(unclean_str):
     return clean_str
 
 def remove_special_characters(unclean_str):
-    clean_str = re.sub(r"[^a-z0-9'\s]", '', unclean_str)
+    clean_str = re.sub(r"[^a-z'\s]", '', unclean_str)
     return clean_str
 
 def tokenize(unclean_str):
