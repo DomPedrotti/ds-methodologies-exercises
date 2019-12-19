@@ -10,3 +10,6 @@ __pycache__
 case.csv
 source.csv
 dept.csv
+*.csv
+*.json
+spark-warehouse
