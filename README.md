@@ -9,7 +9,7 @@ These Include:
 - Natural Language Processing
 
 
-## Summaries
+## Methodologies
 All methodologies encompased the entirety of the Data Pipeline, starting with acquisition and preparation of data and ending on a presentation of findings.
 
 ### I. Regression
@@ -34,3 +34,27 @@ Libraries used and Dependancies:
 - **Pydataset** for training dataframes
 - **Seaborn** for data Visualization
 - Must have an env file to replicate SQL queries. If you're not a Codeup Student or Professor, you will not be able to obtain this
+
+### III. Clustering
+> Final Project can be found at https://github.com/LambDom/Zillow-logerror
+
+Libraries used and Dependancies:
+- **Pandas** for database manipulation
+- **Numpy** for matrix manipulation
+- **Sklearn** cluster, model_selection, preprocessing, metrics
+- **Pydataset** for training dataframes
+- **Seaborn** for data Visualization
+- Must have an env file to replicate SQL queries. If you're not a Codeup Student or Professor, you will not be able to obtain this
+
+### IV. Time Series and Anomaly Detection
+> Final Project can be found at https://github.com/Dom-Misty
+
+Libraries used and Dependancies:
+- **Pandas** for database manipulation
+- **Numpy** for matrix manipulation
+- **Sklearn** metrics, model_selection, preprocessing, cluster
+- **Re** for Regular Expressions
+- **Pydataset** for training dataframes
+- **Seaborn** for data Visualization
+- Must have an env file to replicate SQL queries. If you're not a Codeup Student or Professor, you will not be able to obtain this
+
