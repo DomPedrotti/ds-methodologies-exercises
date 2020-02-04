@@ -14,3 +14,12 @@ All methodologies encompased the entirety of the Data Pipeline, starting with ac
 
 ### I. Regression
 > Final Project can be found at https://github.com/DomPedrotti/zillow-regression-project
+
+Libraries used and Dependancies:
+- **Pandas** for database manipulation
+- **Numpy** for matrix manipulation
+- **Scipy** for statistics
+- **Sklearn** model_selection, preprocessing, linear_model, feature_selection, metrics
+- **Pydataset** for training dataframes
+- **Seaborn** for data Visualization
+- Must have an env file to replicate SQL queries. If you're not a Codeup Student or Professor, you will not be able to obtain this
