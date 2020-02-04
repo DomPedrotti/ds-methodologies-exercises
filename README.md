@@ -23,3 +23,14 @@ Libraries used and Dependancies:
 - **Pydataset** for training dataframes
 - **Seaborn** for data Visualization
 - Must have an env file to replicate SQL queries. If you're not a Codeup Student or Professor, you will not be able to obtain this
+
+### II. Classification
+> Final Project can be found at https://github.com/DomPedrotti/Classification_Project
+
+Libraries used and Dependancies:
+- **Pandas** for database manipulation
+- **Numpy** for matrix manipulation
+- **Sklearn** model_selection, preprocessing, feature_selection, metrics, neighbors, linear_model, tree, ensemble
+- **Pydataset** for training dataframes
+- **Seaborn** for data Visualization
+- Must have an env file to replicate SQL queries. If you're not a Codeup Student or Professor, you will not be able to obtain this
