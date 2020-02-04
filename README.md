@@ -58,3 +58,17 @@ Libraries used and Dependancies:
 - **Seaborn** for data Visualization
 - Must have an env file to replicate SQL queries. If you're not a Codeup Student or Professor, you will not be able to obtain this
 
+### V. Natural Language Processing
+> Final Project can be found at https://github.com/ScrapeLife
+
+Libraries used and Dependancies:
+- **Pandas** for database manipulation
+- **Numpy** for matrix manipulation
+- **Sklearn** metrics, model_selection, preprocessing, feature_extraction, linear_model, tree
+- **Re** for Regular Expressions
+- **Bs4** for HTML Processing
+- **Requests** for web requests
+- **NLTK** for tokenizing and preparing text
+- **unicodedata** for normalizing text
+- **Pydataset** for training dataframes
+- **Seaborn** for data Visualization
